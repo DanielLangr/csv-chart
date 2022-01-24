@@ -22,7 +22,10 @@ body {
 
 <input type="file" id="file-selector" multiple>
 
-<canvas id="myChart" width="400" height="400"></canvas>
+<div class="chart-container" style="position: relative; height: 40vh; width: 80wh">
+  <canvas id="myChart"></canvas>
+</div>  
+  
 <script>
 
 function transpose(matrix) {
@@ -85,6 +88,8 @@ const myChart = new Chart(ctx, {
         }]
     },
     options: {
+        responsive: true,
+        maintainAspectRatio: true,
         scales: {
             y: {
                 beginAtZero: true
