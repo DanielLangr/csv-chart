@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+<title>CSV Chart</title>
 
 <style>
 body {
@@ -12,6 +12,7 @@ body {
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-csv@1.0.21/src/jquery.csv.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+<script src="functions.js"></script>
 
 </head>
 
@@ -22,43 +23,21 @@ body {
 
 <input type="file" id="file-selector" multiple>
 
+<div id = "container"></div>
+
 <div class="chart-container" style="position: relative; height: 40vh; width: 80wh">
   <canvas id="myChart"></canvas>
 </div>  
   
 <script>
 
-function transpose(matrix) {
-  return matrix[0].map((col, i) => matrix.map(row => row[i]));
-}
-
 $(document).ready(function() {
-
-const fileSelector = document.getElementById('file-selector');
-fileSelector.addEventListener('change', (event) => {
-  const fileList = event.target.files;
-  console.log(fileList);
-
-  var reader = new FileReader();
-
-  reader.onload = function(e) {
-    var csv_data = e.target.result;
-    var data = $.csv.toArrays(csv_data);
-    var tdata = transpose(data);
-    console.log(tdata);
-
-
-  };
-
-  reader.readAsText(fileList.item(0));
-});
-
+  setupFileSelector();
 });
 
 
 
-
-
+/*
 
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
@@ -97,6 +76,9 @@ const myChart = new Chart(ctx, {
         }
     }
 });
+
+*/
+
 </script>
 
 </body>
