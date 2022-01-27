@@ -3,6 +3,9 @@
 <head>
 <title>CSV Chart</title>
 
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
 
 * {
@@ -18,9 +21,39 @@ body {
   font-family: Arial, sans-serif;
 }
 
-#svg-container {
+#main-container {
   height: 100vh;
-  background-color: red;
+  min-width: 600px;
+}
+
+#menu-container {
+  width: 120px;
+  height: 100vh;
+  background-color: dimgray;
+  float: left;
+}
+
+#content-container {
+  width: calc(100% - 120px);
+  height: 100vh;
+  float: left;
+}
+
+#svg-container {
+  width: 100%;
+  height: 100%;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+.menu-button {
+  width: 100%;
+}
+
+svg {
 }
 
 </style>
@@ -29,11 +62,91 @@ body {
 
 <body>
 
+<div id="main-container">
 
-<div id="svg-container">
+<div id="menu-container">
+
+<button type="button" id="open-csv-button" class="menu-button">Open CSV</button>
 
 </div>
 
+<div id = "content-container">
+
+<div id = "svg-container">
+
+<svg id="chart" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid">
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+$(document).ready(function(){
+  main();
+});
+
+function main() {
+  const svg = d3.select("#chart");
+  initSvg(svg);
+}
+
+function initSvg(svg) {
+  let margin = { top: 20, right: 20, bottom: 20, left: 40 };
+  let width = 300 - margin.left - margin.right;
+  let height = 200 - margin.top - margin.bottom;
+
+  const n = 10000;
+  let x = d3.range(0, n);
+  let y = [];
+  for (let i = 0; i < n; i++)
+    y[i] = Math.sin(i / 1000) + Math.random() / 10;
+
+  let xy = x.map(function(d,i) {
+    return { x : d, y : y[i] };
+  });
+
+  let group = svg.append("g")
+     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  let xScale = d3.scaleLinear()
+                 .domain(d3.extent(x))
+                 .range([0, width]);
+
+  let xAxis = d3.axisBottom(xScale);
+
+  group.append("g")
+     .attr("transform", "translate(0," + height + ")")
+     .style("font-size", "6px")
+     .call(xAxis);
+
+  let yScale = d3.scaleLinear()
+                 .domain(d3.extent(y))
+                 .range([height, 0]);
+
+  let yAxis = d3.axisLeft(yScale);
+
+  group.append("g")
+     .style("font-size", "6px")
+     .call(yAxis);
+  
+  let dataLine = d3.line()
+                .x(d => xScale(d.x))
+                .y(d => yScale(d.y)); 
+
+  group.append("path")
+     .attr("fill", "none")
+     .attr("stroke", "blue")
+     .attr("stroke-width", 1.5)
+     .attr("vector-effect", "non-scaling-stroke")
+     .attr("d", dataLine(xy)
+  );
+}
+
+</script>
   
 </body>
 </html> 
