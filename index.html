@@ -80,7 +80,7 @@ svg {
 
 <div id = "svg-container">
 
-<svg id="chart" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid">
+<svg id="chart" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid">
 </svg>
 
 </div>
@@ -100,9 +100,9 @@ function main() {
 }
 
 function drawChart(svg, x, y) {
-  let margin = { top: 20, right: 20, bottom: 20, left: 40 };
-  let width = 300 - margin.left - margin.right;
-  let height = 200 - margin.top - margin.bottom;
+  let margin = { top: 40, right: 40, bottom: 40, left: 80 };
+  let width = 1200 - margin.left - margin.right;
+  let height = 800 - margin.top - margin.bottom;
 
   let xy = x.map(function(d,i) {
     return { x : d, y : y[i] };
@@ -119,7 +119,7 @@ function drawChart(svg, x, y) {
 
   group.append("g")
      .attr("transform", "translate(0," + height + ")")
-     .style("font-size", "4px")
+     .style("font-size", "12px")
      .call(xAxis);
 
   let yScale = d3.scaleLinear()
@@ -129,8 +129,9 @@ function drawChart(svg, x, y) {
   let yAxis = d3.axisLeft(yScale);
 
   group.append("g")
-     .style("font-size", "4px")
-     .call(yAxis);
+     .style("font-size", "12px")
+     .call(yAxis)
+       .selectAll("line,path").style("stroke-width", "1px");
   
   let dataLine = d3.line()
                 .x(d => xScale(d.x))
