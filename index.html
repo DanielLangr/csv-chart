@@ -50,7 +50,7 @@ svg {
   height: 100%;
 }
 
-.menu-button {
+.menu-item {
   width: 100%;
 }
 
@@ -71,7 +71,8 @@ svg {
 
 <div id="menu-container">
 
-<input type="file" id="file-selector" title="Open CSV" />
+<input type="file" id="file-selector" title="Open CSV" style="display:none;" />
+<input type="button" value="Open CSV" class="menu-item" onclick="document.getElementById('file-selector').click();" \>
 
 </div>
 
@@ -179,6 +180,7 @@ function setupDatasetSelector(arr) {
   let select = document.createElement("select");
   select.name = "dataset";
   select.id = "dataset";
+  select.className = "menu-item";
   select.onchange = function(){
     selectDataSet(this);
   }
@@ -191,11 +193,17 @@ function setupDatasetSelector(arr) {
     select.appendChild(option);
   }
 
+/*
   let label = document.createElement("label");
   label.innerHTML = "Select dataset: ";
   label.htmlFor = "dataset";
     
   document.getElementById("menu-container").appendChild(label).appendChild(select);
+*/
+
+  document.getElementById("menu-container").appendChild(select);
+
+  selectDataSet(select);
 }
 
 function selectDataSet(select) {
