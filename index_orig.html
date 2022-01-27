@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CSV Chart</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-csv@1.0.21/src/jquery.csv.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+<script src="functions.js"></script>
+
+</head>
+
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+<input type="file" id="file-selector" multiple>
+
+<div id = "container"></div>
+
+<div class="chart-container" style="position: relative; height: 40vh; width: 80wh">
+  <canvas id="myChart"></canvas>
+</div>  
+  
+<script>
+
+$(document).ready(function() {
+//  setupFileSelector();
+});
+
+</script>
+
+</body>
+</html> 
